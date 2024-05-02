@@ -1,5 +1,6 @@
 package candidatura;
 
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ProcessoSeletivo {
@@ -7,20 +8,52 @@ public class ProcessoSeletivo {
         // analisarCandidato(2000.0);
         // analisarCandidato(1500.0);
         // analisarCandidato(3000.0);
-        //selecaoCandidatos();
-        imprimirSelecionados();
+        // selecaoCandidatos();
+        // imprimirSelecionados();
+
+        String[] candidatos = { "FELIPE", "ARTUR", "MARIANA", "DEBORA", "MARCOS" };
+        for (String candidato : candidatos) {
+            entrandoEmContato(candidato);
+        }
 
     }
 
-    static void imprimirSelecionados(){
-        String[] candidatos = { "FELIPE", "ARTUR", "MARIANA", "DEBORA", "MARCOS"};
+    static void entrandoEmContato(String contato) {
+        int tentativaRealizadas = 1;
+        boolean continuarTentando = true;
+        boolean atendeu = false;
+
+        do {
+            atendeu = atender();
+            continuarTentando = !atendeu;
+            if (continuarTentando) {
+                tentativaRealizadas++;
+            } else {
+                System.out.println("CONTATO REALIZADO COM SUCESSO");
+            }
+        } while (continuarTentando && tentativaRealizadas < 3);
+
+        if (atendeu) {
+            System.out.println("CONSEGUIMOS CONTATO COM " + contato + " NA " + tentativaRealizadas);
+        } else {
+            System.out.println(
+                    "NÃO CONSEGUIMOS CONTATO COM " + contato + ", TENTATIVAS REALIZADAS " + tentativaRealizadas);
+        }
+    }
+
+    static boolean atender() {
+        return new Random().nextInt(3) == 1;
+    }
+
+    static void imprimirSelecionados() {
+        String[] candidatos = { "FELIPE", "ARTUR", "MARIANA", "DEBORA", "MARCOS" };
         System.out.println("IMPRIMINDO A LISTA DE CANDIDATOS INFORMANDO O INDICE DO ELEMENTO");
 
-        for(int i = 0; i < candidatos.length; i++ ){
+        for (int i = 0; i < candidatos.length; i++) {
             System.out.println("O candidato de numero " + i + " é " + candidatos[i]);
         }
-        
-        //ou
+
+        // ou
 
         for (String candidato : candidatos) {
             System.out.println("O candidato selecionado foi " + candidato);
